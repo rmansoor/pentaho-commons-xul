@@ -4,6 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>commons-xul</artifactId>
+  <!-- local Java 21 build on commons-lang3; PDI pins core, swt and swing -->
+  <version>9.4.0.0-jdk21-1</version>
   <packaging>pom</packaging>
 
   <parent>
