@@ -17,7 +17,9 @@
 
 package org.pentaho.ui.xul.util;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
+import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -69,9 +71,13 @@ public class ResourceBundleTranslator {
     return sb.toString();
   }
 
+  // XML escaping as commons-lang 2 did it: characters above 0x7f become numeric references
+  private static final CharSequenceTranslator ESCAPE_XML =
+    StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.above( 0x7f ) );
+
   private static String getTranslatedValue( String key, ResourceBundle bundle ) {
     try {
-      return StringEscapeUtils.escapeXml( bundle.getString( key ) );
+      return ESCAPE_XML.translate( bundle.getString( key ) );
     } catch ( MissingResourceException e ) {
       // return unchanged so later ResourceBundles can have a go at it
       return "\\${" + key + "}"; //$NON-NLS-1$ //$NON-NLS-2$

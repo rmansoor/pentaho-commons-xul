@@ -31,7 +31,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainDocument;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.pentaho.ui.xul.XulComponent;
@@ -337,7 +337,9 @@ public class SwingTextbox extends SwingElement implements XulTextbox {
     }
 
     private boolean validString( String str ) {
-      return StringUtils.isNumeric( str.replace( ".", "" ).replace( "-", "" ) ) || str.equals( "-" )
+      String digits = str.replace( ".", "" ).replace( "-", "" );
+      // lang3's isNumeric( "" ) is false (lang 2: true)
+      return digits.isEmpty() || StringUtils.isNumeric( digits ) || str.equals( "-" )
           || str.equals( "." );
     }
   }
