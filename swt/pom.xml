@@ -45,6 +45,14 @@
       <artifactId>org.eclipse.jface</artifactId>
       <version>${jface.version}</version>
     </dependency>
+    <!-- jface pulls org.eclipse.swt through an open version range, which resolves to the newest SWT (built for
+         Java 21 since 3.129). A direct dependency, so projects building against commons-xul-swt get it too:
+         the one pentaho-kettle 9.4 ships. PDI is compiled for and runs on Java 17. -->
+    <dependency>
+      <groupId>org.eclipse.platform</groupId>
+      <artifactId>org.eclipse.swt</artifactId>
+      <version>3.124.100</version>
+    </dependency>
     <dependency>
       <groupId>org.eclipse.platform</groupId>
       <artifactId>org.eclipse.equinox.common</artifactId>
